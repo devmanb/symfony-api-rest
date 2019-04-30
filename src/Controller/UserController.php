@@ -30,14 +30,13 @@ class UserController extends AbstractController
         );
         if(is_null($data))
         {
-            $mylat=$request->get('lat');
-            $mylong=$request->get('lon');
+            $mylat=$request->get('mylat');
+            $mylong=$request->get('mylong');
         }else
         {
-            $mylat=$data['lat'];
-            $mylong=$data['lon'];
+            $mylat=$data['mylat'];
+            $mylong=$data['mylong'];
         }
-
         $client = new Client();
 
         $response = $client->request('GET', "http://api.openweathermap.org/data/2.5/weather?"
@@ -45,6 +44,8 @@ class UserController extends AbstractController
             'lat'=>$mylat, 'lon'=>$mylong,'lang'=>'fr','units'=>'metric','appid'=>'1e4bb6b0352cb974596a6d35327b606e'
             ]]);
 //        $crawler = $client->submit(");
+
+
         return  $this->json($response->getBody());
         //return $this->json(['name' => 'temp','temp'=>'temp']);
     }
